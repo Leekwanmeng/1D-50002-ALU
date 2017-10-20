@@ -553,7 +553,7 @@ module mojo_top (
         counter.d = 0;
         state.d = state.OR;
         }
-      else if (counter.q[24] == 1 && alu_out != 8b00000100){                            //if output is wrong, move to error state (ERR_BOOL)
+      if (counter.q[24] == 1 && alu_out != 8b00000100){                                  //if output is wrong, move to error state (ERR_BOOL)
         counter.d=0;
         state.d=state.ERR_BOOL;
         }    
@@ -702,7 +702,7 @@ module mojo_top (
         }    
          
 
-     //testcase for NOR (expected output : 8b00000001)
+     //testcase for NOR (expected output : 8b11110001)
     state.NOR:                    //selecting NOR state
     alu.alufn = 6b010001;         //selecting NOR on alufn
     alu.a = 8b00000110;           //input a : 8b00000110 (6)
@@ -710,51 +710,51 @@ module mojo_top (
     alu_out = alu.alu_out;  //output of the operation
     io_led[0] = 8b00000110;       //displaying a on LED
     io_led[1] = 8b00001100;       //displaying b on LED
-    io_led[2] = 8b00000001;       //displaying expected output on LED (1)
+    io_led[2] = 8b11110001;       //displaying expected output on LED
     seg.values = {4hd, 4hd, 4hc, 4h7};              //segment lights of B7
     
     counter.d = counter.q+1;
-      if (counter.q[24] == 1 && alu_out == 8b00000001 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (NAND)
+      if (counter.q[24] == 1 && alu_out == 8b11110001 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (NAND)
         counter.d = 0;
         state.d = state.NAND;
         }
-      else if (counter.q[24] == 1 && alu_out != 8b00000001){                          //if output is wrong, move to error state (ERR_BOOL)
+      else if (counter.q[24] == 1 && alu_out != 8b11110001){                          //if output is wrong, move to error state (ERR_BOOL)
         counter.d=0;
         state.d=state.ERR_BOOL;
         }    
-      else if (counter.q[24] == 1 && alu_out == 8b00000001 && io_button[3] == 1){      //if output is correct and left button is pressed, move to previous state (NOTB)
+      else if (counter.q[24] == 1 && alu_out == 8b11110001 && io_button[3] == 1){      //if output is correct and left button is pressed, move to previous state (NOTB)
         counter.d=0;
         state.d=state.B_INVERT;
         }    
 
     
-     //testcase for NAND (expected output : 8b00001101)
+     //testcase for NAND (expected output : 8b11111011)
     state.NAND:                    //selecting NAND state
-    alu.alufn = 6b0110111;         //selecting NAND on alufn
+    alu.alufn = 6b010111;         //selecting NAND on alufn
     alu.a = 8b00000110;           //input a : 8b00000110 (6)
     alu.b = 8b00001100;           //input b : 8b00001100 (12)
     alu_out = alu.alu_out;  //output of the operation
     io_led[0] = 8b00000110;       //displaying a on LED
     io_led[1] = 8b00001100;       //displaying b on LED
-    io_led[2] = 8b00001011;       //displaying expected output on LED (11)
+    io_led[2] = 8b11111011;       //displaying expected output on LED
     seg.values = {4hd, 4hd, 4hc, 4h8};              //segment lights of B8
     
     counter.d = counter.q+1;
-      if (counter.q[24] == 1 && alu_out == 8b00001011 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (XNOR)
+      if (counter.q[24] == 1 && alu_out == 8b11111011 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (XNOR)
         counter.d = 0;
         state.d = state.XNOR;
         }
-      else if (counter.q[24] == 1 && alu_out != 8b00001011){                            //if output is wrong, move to error state (ERR_BOOL)
+      else if (counter.q[24] == 1 && alu_out != 8b11111011){                            //if output is wrong, move to error state (ERR_BOOL)
         counter.d=0;
         state.d=state.ERR_BOOL;
         }    
-      else if (counter.q[24] == 1 && alu_out == 8b00001011 && io_button[3] == 1){      //if output is correct and left button is pressed, move to previous state (NOR)
+      else if (counter.q[24] == 1 && alu_out == 8b11111011 && io_button[3] == 1){      //if output is correct and left button is pressed, move to previous state (NOR)
         counter.d=0;
         state.d=state.NOR;
         }    
     
     
-    //testcase for XNOR (expected output : 8b00000101)
+    //testcase for XNOR (expected output : 8b11110101)
     state.XNOR:                    //selecting XNOR state
     alu.alufn = 6b011001;         //selecting XNOR on alufn
     alu.a = 8b00000110;           //input a : 8b00000110 (6)
@@ -762,24 +762,24 @@ module mojo_top (
     alu_out = alu.alu_out;  //output of the operation
     io_led[0] = 8b00000110;       //displaying a on LED
     io_led[1] = 8b00001100;       //displaying b on LED
-    io_led[2] = 8b00000101;       //displaying expected output on LED (5)
+    io_led[2] = 8b11110101;       //displaying expected output on LED (5)
     seg.values = {4hd, 4hd, 4hc, 4h0};              //segment lights of B0
     
     counter.d = counter.q+1;
-      if (counter.q[24] == 1 && alu_out == 8b00000101 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (SHL)
+      if (counter.q[24] == 1 && alu_out == 8b11110101 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (SHL)
         counter.d = 0;
-        state.d = state.SHL;
+        state.d = state.TESTCASE_ERROR_AND;
         }
-      else if (counter.q[24] == 1 && alu_out != 8b00000101){                          //if output is wrong, move to error state (ERR_BOOL)
+      else if (counter.q[24] == 1 && alu_out != 8b11110101){                          //if output is wrong, move to error state (ERR_BOOL)
         counter.d=0;
         state.d=state.ERR_BOOL;
         }    
-      else if (counter.q[24] == 1 && alu_out == 8b00000101 && io_button[3] == 1){      //if output is correct and left button is pressed, move to previous state (NAND)
+      else if (counter.q[24] == 1 && alu_out == 8b11110101 && io_button[3] == 1){      //if output is correct and left button is pressed, move to previous state (NAND)
         counter.d=0;
         state.d=state.NAND;
         }    
         
-            //testcase for TESTCASE_ERROR_AND (expected output : 8b00000100)
+    //testcase for TESTCASE_ERROR_AND (expected output : 8b00000100)
     state.TESTCASE_ERROR_AND:                    //selecting AND state
     alu.alufn = 6b011000;         //selecting AND on alufn
     alu.a = 8b00000110;           //input a : 8b00000110 (6)
@@ -793,7 +793,7 @@ module mojo_top (
     counter.d = counter.q+1;
       if (counter.q[24] == 1 && alu_out == 8b00000100 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (OR)
         counter.d = 0;
-        state.d = state.OR;
+        state.d = state.SHL;
         }
       else if (counter.q[27] == 1 && alu_out != 8b00000100){                            //if output is wrong, move to error state (ERR_BOOL)
         counter.d=0;
@@ -880,7 +880,7 @@ module mojo_top (
         counter.d = counter.q+1;
       if (counter.q[24] == 1 && alu_out == 8b11100011 && io_button[4] == 1){           //if output is correct & right button pressed, move to next state (ADD_OF)
         counter.d = 0;
-        state.d = state.ADD_OF;
+        state.d = state.TESTCASE_ERROR_SHL;
         }
       else if (counter.q[24] == 1 && alu_out != 8b11100011){                            //if output is wrong, move to error state (ERR_SHIFT)
         counter.d=0;
